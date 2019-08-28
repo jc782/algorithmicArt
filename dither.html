@@ -1,0 +1,49 @@
+
+
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Algorithmic Art - Floyd-Steinberg Dither</title>
+  <meta name="description" content="Dither Image">
+  <meta name="J Carr" content="SitePoint">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js" crossorigin="anonymous"></script>
+
+  <style>
+  body {
+    background: black;
+    color: white;
+  }
+
+  #canvas {
+    display: block;
+    margin: 0px auto;
+    border: 2px solid black;
+    outline: 2px solid white;
+  }
+  button {
+   padding: 12px 50px;
+   border: none;
+   background-color: rgb(91,234,208);
+   color: #333;
+   cursor: pointer;
+   display: inline-block;
+  }
+  </style>
+
+</head>
+
+<body>
+    <h1>Floyd-Steinberg dithering</h1>
+    <p>Drop any image on to the canvas to dither it
+<br>
+        <button>Download</button>
+    </p>
+
+    <canvas id="canvas" width="300" height="300"></canvas>
+
+  <script src="dither.js"></script>
+</body>
+</html>
