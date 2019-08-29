@@ -9,55 +9,67 @@ var can = document.getElementById("canvas"),
     img = new Image(),
     pushPinCount = [];
     newArr = [];
+    newSize = [];
+    newWidth = [];
+    newHeight = [];
 
 
-const pdf = new jsPDF('l', 'mm', 'a3');
 let button = document.querySelector('button');
 button.addEventListener('click', printPDF)
 
 function printPDF(){
-    var ypos = 10;
-    console.log(newArr);
-    pdf.setFontSize(8);
+    const pdf = new jsPDF('l', 'mm', 'a3');
+    var ypos = (297/2)-6*(newHeight/2);
+    console.log(newSize);
+    pdf.setFontSize(6);
     for (let row of newArr) {
-        var xpos = 10;
+        var xpos = (420/2)-6*(newWidth/2);
         for (let cell of row) {
             var text = cell.toString();
             switch(text){
                 case "0":
-                pdf.setTextColor(10, 7, 0);
+                //pdf.setTextColor(10, 7, 0);
+                pdf.text(xpos,ypos,'Bl');
                 break;
                 case "1":
-                pdf.setTextColor(219, 193, 204);
+                //pdf.setTextColor(219, 193, 204);
+                pdf.text(xpos,ypos,'W');
                 break;
                 case "2":
-                pdf.setTextColor(173, 47, 19);
+                //pdf.setTextColor(173, 47, 19);
+                pdf.text(xpos,ypos,'R');
                 break;
                 case "3":
-                pdf.setTextColor(21, 101, 149);
+                //pdf.setTextColor(21, 101, 149);
+                pdf.text(xpos,ypos,'B');
                 break;
                 case "4":
-                pdf.setTextColor(165, 122, 72);
+                //pdf.setTextColor(165, 122, 72);
+                pdf.text(xpos,ypos,'Go');
                 break;
                 case "5":
-                pdf.setTextColor(215, 156, 52);
+                //pdf.setTextColor(215, 156, 52);
+                pdf.text(xpos,ypos,'Y');
                 break;
                 case "6":
-                pdf.setTextColor(84, 34, 90);
+                //pdf.setTextColor(84, 34, 90);
+                pdf.text(xpos,ypos,'P');
                 break;
                 case "7":
-                pdf.setTextColor(24, 117, 20);
+                //pdf.setTextColor(24, 117, 20);
+                pdf.text(xpos,ypos,'G');
                 break;
                 case "8":
-                pdf.setTextColor(106, 53, 7);
+                //pdf.setTextColor(106, 53, 7);
+                pdf.text(xpos,ypos,'Br');
                 break;
                 case "9":
-                pdf.setTextColor(206, 147, 28);
+                //pdf.setTextColor(206, 147, 28);
+                pdf.text(xpos,ypos,'O');
                 break;
                 default:
                 pdf.setTextColor(0, 0, 0);
             }
-            pdf.text(xpos, ypos, text);
             xpos = xpos + 6;
             };
             ypos = ypos + 6;
@@ -158,7 +170,8 @@ function countArray(arr) {
         }
         prev = arr[i];
     }
-
+    console.log(a);
+    console.log(b);
     return [a, b];
 }
 
@@ -167,15 +180,16 @@ img.addEventListener("load", function () {
 
     //Reset certain things
   pushPinCount = [];
+  newArr = [];
 
   // shorthands
   var w = this.width, h = this.height;
 
   // resize the image
-  var newSize = 45  ;
-  var ratio = w/h;
-  var newHeight = newSize;
-  var newWidth = newSize * ratio;
+  newSize = 37;
+  ratio = w/h;
+  newHeight = newSize;
+  newWidth = newSize * ratio;
 
 
   // correct canvas size
@@ -243,23 +257,23 @@ img.addEventListener("load", function () {
   }
   // put the data back
   ctx.putImageData(imageData, 0, 0);
-  console.log(pushPinCount);
-  while(pushPinCount.length) newArr.push(pushPinCount.splice(0,newWidth));
-  console.log(newArr)
-
   //create a Table Object
+// let tempArr = pushPinCount;
+//  let result = countArray(tempArr);
+
+  while(pushPinCount.length) newArr.push(pushPinCount.splice(0,newWidth));
   let table = document.createElement('table');
+
   for (let row of newArr) {
       table.insertRow();
       for (let cell of row) {
           let newCell = table.rows[table.rows.length - 1].insertCell();
           newCell.textContent = cell;
   }
-}
+ }
+
+
 //append the compiled table to the DOM
 document.body.appendChild(table);
 
-  //tempArr = pushPinCount;
-  //var result = countArray(tempArr);
-  //console.log('[' + result[0] + ']<br>[' + result[1] + ']');
   });
