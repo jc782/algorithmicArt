@@ -43,7 +43,28 @@
     </p>
 
     <canvas id="canvas" width="300" height="300"></canvas>
+    <canvas id="myCanvas" width="1000" height="1000"></canvas>
 
   <script src="dither.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.6.0/firebase.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCtOzGsLV2jaC1IvGGV_LfMNUG5PvvidkQ",
+    authDomain: "algorithmic-art.firebaseapp.com",
+    databaseURL: "https://algorithmic-art.firebaseio.com",
+    projectId: "algorithmic-art",
+    storageBucket: "",
+    messagingSenderId: "634872263162",
+    appId: "1:634872263162:web:0f9177d9bc65484365f443"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+
+</script>
 </body>
 </html>

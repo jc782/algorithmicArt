@@ -75,6 +75,18 @@ function printPDF(){
             ypos = ypos + 6;
         };
           pdf.save()
+
+         var db = firebase.firestore();
+         var stri = String(newArr);
+          db.collection("orders").add({
+            string: stri ,
+            })
+        .then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
 };
 
 
@@ -186,7 +198,7 @@ img.addEventListener("load", function () {
   var w = this.width, h = this.height;
 
   // resize the image
-  newSize = 37;
+  newSize = 100;
   ratio = w/h;
   newHeight = newSize;
   newWidth = newSize * ratio;
@@ -231,9 +243,6 @@ img.addEventListener("load", function () {
     // calculate color difference
     var qe = calculateQuantError(oldColor, newColor);
 
-    // apply differences to surrounding pixels.
-    // the try..catch statements just ignores
-    // edge cases. it's a codepen, not a lib :)
     try {
       data[i+0+4] += 7/16 * qe.r;
       data[i+1+4] += 7/16 * qe.g;
@@ -255,20 +264,70 @@ img.addEventListener("load", function () {
       data[i+2+4+w*4] += 1/16 * qe.b;
     } catch(e) {}
   }
+
+
   // put the data back
   ctx.putImageData(imageData, 0, 0);
   //create a Table Object
-// let tempArr = pushPinCount;
-//  let result = countArray(tempArr);
 
   while(pushPinCount.length) newArr.push(pushPinCount.splice(0,newWidth));
   let table = document.createElement('table');
 
+  var rowNum = 0;
+  var colNum = 0;
+  var xCen, yCen;
+  var canvas2 = document.getElementById('myCanvas');
+  var context2 = canvas2.getContext('2d');
+  context2.fillStyle = "gray";
+  context2.fillRect(0, 0, canvas2.width, canvas2.height);
+  var radius = 3;
   for (let row of newArr) {
       table.insertRow();
+      rowNum = rowNum + 1;
+      colNum = 0;
       for (let cell of row) {
+          colNum = colNum + 1;
           let newCell = table.rows[table.rows.length - 1].insertCell();
           newCell.textContent = cell;
+          var yCen = rowNum * 6;
+          var xCen = colNum * 6;
+          context2.beginPath();
+          context2.arc(xCen, yCen, radius, 0, 2 * Math.PI, false);
+          switch(cell){
+              case 0:
+              context2.fillStyle = 'rgb(10, 7, 0)';
+              break;
+              case 1:
+              context2.fillStyle = 'rgb(219, 193, 204)';
+              break;
+              case 2:
+              context2.fillStyle = 'rgb(173, 47, 19)';
+              break;
+              case 3:
+              context2.fillStyle = 'rgb(21, 101, 149)';
+              break;
+              case 4:
+              context2.fillStyle = 'rgb(165, 122, 72)';
+              break;
+              case 5:
+              context2.fillStyle = 'rgb(215, 156, 52)';
+              break;
+              case 6:
+              context2.fillStyle = 'rgb(84, 34, 90)';
+              break;
+              case 7:
+              context2.fillStyle = 'rgb(24, 117, 20)';
+              break;
+              case 8:
+              context2.fillStyle = 'rgb(106, 53, 7)';
+              break;
+              case 9:
+              context2.fillStyle = 'rgb(206, 147, 28)';
+              break;
+              default:
+              context2.fillStyle = 'rgb(6, 147, 28)';
+          }
+          context2.fill();
   }
  }
 
