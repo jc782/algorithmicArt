@@ -7,9 +7,9 @@ var can = document.getElementById("canvas"),
     pushPinCount = [],
     ratio = 1,
     newArr = [],
-    newSize = 45,
-    newWidth = 45,
-    newHeight = 45,
+    newSize = 65,
+    newWidth = 0,
+    newHeight = 0,
     orient = 1; // 1 is landscape, 0 is portrait
 
 // select the colors that are available
@@ -70,12 +70,22 @@ img.addEventListener("load", function () {
   // set the newsize larger dimension to be as requested
   if (ratio < 1){
       orient = 0;
-      newHeight = newSize;
-      newWidth = Math.round(newSize * ratio);
+      if (ratio < 0.69){
+          newHeight = newSize;
+          newWidth = Math.round(newHeight * ratio);
+      } else {
+          newWidth = Math.round(newSize/1.468);
+          newHeight = Math.round(newWidth / ratio);
+      }
   } else {
       orient = 1;
-      newWidth = newSize;
-      newHeight = Math.round(newSize / ratio);
+      if (ratio > 1.468){
+          newWidth = newSize;
+          newHeight = Math.round(newWidth / ratio);
+      } else {
+          newHeight = Math.round(newSize/1.468);
+          newWidth = Math.round(newHeight * ratio);
+      }
   }
   console.log(newWidth);
   console.log(newHeight);
