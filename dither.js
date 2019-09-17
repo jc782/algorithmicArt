@@ -1,94 +1,34 @@
-/////////////////////////////////////////////////
-// Floyd-Steinberg dithering
-// @carlcalderon
-/////////////////////////////////////////////////
-
-// store stuff
+//  define global variables
 var can = document.getElementById("canvas"),
     ctx = can.getContext("2d"),
+    canvas = document.getElementById('myCanvas'),
+    context = canvas.getContext('2d'),
     img = new Image(),
-    pushPinCount = [];
-    newArr = [];
-    newSize = [];
-    newWidth = [];
-    newHeight = [];
+    pushPinCount = [],
+    ratio = 1,
+    newArr = [],
+    newSize = 45,
+    newWidth = 45,
+    newHeight = 45,
+    orient = 1; // 1 is landscape, 0 is portrait
+
+// select the colors that are available
+var colors = [
+                  [10, 7, 0,0], //black
+                  [219, 193, 204,1], // white
+                  [173, 47, 19,2], // red
+                  [21, 101, 149,3], //blue
+                  [165, 122, 72,4], // gold
+                  [215, 156, 52,5], //yellow
+                  [84, 34, 90, 6], // purple
+                  [24, 117, 20, 7], //green
+                  [106, 53, 7, 8], //brown
+                  [206, 147, 28, 9], //orange
+              ];
 
 
 let button = document.querySelector('button');
 button.addEventListener('click', printPDF)
-
-function printPDF(){
-    const pdf = new jsPDF('l', 'mm', 'a3');
-    var ypos = (297/2)-6*(newHeight/2);
-    console.log(newSize);
-    pdf.setFontSize(6);
-    for (let row of newArr) {
-        var xpos = (420/2)-6*(newWidth/2);
-        for (let cell of row) {
-            var text = cell.toString();
-            switch(text){
-                case "0":
-                //pdf.setTextColor(10, 7, 0);
-                pdf.text(xpos,ypos,'Bl');
-                break;
-                case "1":
-                //pdf.setTextColor(219, 193, 204);
-                pdf.text(xpos,ypos,'W');
-                break;
-                case "2":
-                //pdf.setTextColor(173, 47, 19);
-                pdf.text(xpos,ypos,'R');
-                break;
-                case "3":
-                //pdf.setTextColor(21, 101, 149);
-                pdf.text(xpos,ypos,'B');
-                break;
-                case "4":
-                //pdf.setTextColor(165, 122, 72);
-                pdf.text(xpos,ypos,'Go');
-                break;
-                case "5":
-                //pdf.setTextColor(215, 156, 52);
-                pdf.text(xpos,ypos,'Y');
-                break;
-                case "6":
-                //pdf.setTextColor(84, 34, 90);
-                pdf.text(xpos,ypos,'P');
-                break;
-                case "7":
-                //pdf.setTextColor(24, 117, 20);
-                pdf.text(xpos,ypos,'G');
-                break;
-                case "8":
-                //pdf.setTextColor(106, 53, 7);
-                pdf.text(xpos,ypos,'Br');
-                break;
-                case "9":
-                //pdf.setTextColor(206, 147, 28);
-                pdf.text(xpos,ypos,'O');
-                break;
-                default:
-                pdf.setTextColor(0, 0, 0);
-            }
-            xpos = xpos + 6;
-            };
-            ypos = ypos + 6;
-        };
-          pdf.save()
-
-         var db = firebase.firestore();
-         var stri = String(newArr);
-          db.collection("orders").add({
-            string: stri ,
-            })
-        .then(function(docRef) {
-            console.log("Document written with ID: ", docRef.id);
-        })
-        .catch(function(error) {
-            console.error("Error adding document: ", error);
-        });
-};
-
 
 // drag-n-drop
 function preventAction(e) {
@@ -113,79 +53,6 @@ can.addEventListener('dragleave', preventAction, false);
 can.addEventListener('dragover', preventAction, false);
 can.addEventListener('drop', onDrop, false);
 
-// returns palette color
-function palette(color) {
-  // euclidean distance calc on set colours
-  var colors = [
-                [10, 7, 0,0], //black
-                [219, 193, 204,1], // white
-                [173, 47, 19,2], // red
-                [21, 101, 149,3], //blue
-                [165, 122, 72,4], // gold
-                [215, 156, 52,5], //yellow
-                [84, 34, 90, 6], // purple
-                [24, 117, 20, 7], //green
-                [106, 53, 7, 8], //brown
-                [206, 147, 28, 9], //orange
-
-            ];
-  var i;
-  var c;
-  var error = 1000000000;
-  var loop = colors.length;
-  for (i=0; i<loop; i++){
-      ssqError = Math.pow((color.r-colors[i][0]),2) +
-                 Math.pow((color.g-colors[i][1]),2) +
-                 Math.pow((color.b-colors[i][2]),2);
-      if (ssqError < error){
-          error = ssqError;
-          newR = parseInt(colors[i][0]);
-          newG = parseInt(colors[i][1]);
-          newB = parseInt(colors[i][2]);
-          c = parseInt(colors[i][3]);
-      };
-
-  };
-
-
-  // floor to nearest in set
-  /*
-  factor = 1;
-  var newR = parseInt(Math.round(factor * color.r/255) * (255/factor));
-  var newG = parseInt(Math.round(factor * color.g/255) * (255/factor));
-  var newB = parseInt(Math.round(factor * color.b/255) * (255/factor));
-*/
-
-  // Return final value
-  return { r: newR, g: newG, b: newB, a: 255, c: c };
-}
-
-// get difference
-function calculateQuantError(o, n) {
-  //var oc = parseInt((o.r + o.g + o.b) / 3),
-//      nc = parseInt((n.r + n.g + n.b) / 3);
-    var rError = parseInt(o.r - n.r);
-    var gError = parseInt(o.g - n.g);
-    var bError = parseInt(o.b - n.b);
-
-  return { r: rError, g: gError, b: bError, a: 255 };
-}
-function countArray(arr) {
-    var a = [], b = [], prev;
-    arr.sort();
-    for ( var i = 0; i < arr.length; i++ ) {
-        if ( arr[i] !== prev ) {
-            a.push(arr[i]);
-            b.push(1);
-        } else {
-            b[b.length-1]++;
-        }
-        prev = arr[i];
-    }
-    console.log(a);
-    console.log(b);
-    return [a, b];
-}
 
 // dither image when loaded
 img.addEventListener("load", function () {
@@ -194,23 +61,31 @@ img.addEventListener("load", function () {
   pushPinCount = [];
   newArr = [];
 
-  // shorthands
+  // present image size
   var w = this.width, h = this.height;
 
   // resize the image
-  newSize = 100;
   ratio = w/h;
-  newHeight = newSize;
-  newWidth = newSize * ratio;
-
+  console.log(ratio);
+  // set the newsize larger dimension to be as requested
+  if (ratio < 1){
+      orient = 0;
+      newHeight = newSize;
+      newWidth = Math.round(newSize * ratio);
+  } else {
+      orient = 1;
+      newWidth = newSize;
+      newHeight = Math.round(newSize / ratio);
+  }
+  console.log(newWidth);
+  console.log(newHeight);
 
   // correct canvas size
   can.setAttribute("width", newWidth);
   can.setAttribute("height", newHeight);
 
   // draw the image so we can extract the data
- // ctx.drawImage(this, 0, 0, w, h, 0, 0, newWidth, newHeight);
- ctx.drawImage(this, 0, 0, newWidth, newHeight);
+  ctx.drawImage(this, 0, 0, newWidth, newHeight);
 
   // extract the image data and pixel array
   var imageData = ctx.getImageData(0, 0, newWidth, newHeight),
@@ -276,11 +151,11 @@ img.addEventListener("load", function () {
   var rowNum = 0;
   var colNum = 0;
   var xCen, yCen;
-  var canvas2 = document.getElementById('myCanvas');
-  var context2 = canvas2.getContext('2d');
-  context2.fillStyle = "gray";
-  context2.fillRect(0, 0, canvas2.width, canvas2.height);
   var radius = 3;
+  canvas.setAttribute("width", newWidth*2*radius+5);
+  canvas.setAttribute("height", newHeight*2*radius+5);
+  context.fillStyle = "white";
+  context.fillRect(0, 0, canvas.width, canvas.height);
   for (let row of newArr) {
       table.insertRow();
       rowNum = rowNum + 1;
@@ -291,43 +166,43 @@ img.addEventListener("load", function () {
           newCell.textContent = cell;
           var yCen = rowNum * 6;
           var xCen = colNum * 6;
-          context2.beginPath();
-          context2.arc(xCen, yCen, radius, 0, 2 * Math.PI, false);
+          context.beginPath();
+          context.arc(xCen, yCen, radius, 0, 2 * Math.PI, false);
           switch(cell){
               case 0:
-              context2.fillStyle = 'rgb(10, 7, 0)';
+              context.fillStyle = 'rgb(10, 7, 0)';
               break;
               case 1:
-              context2.fillStyle = 'rgb(219, 193, 204)';
+              context.fillStyle = 'rgb(219, 193, 204)';
               break;
               case 2:
-              context2.fillStyle = 'rgb(173, 47, 19)';
+              context.fillStyle = 'rgb(173, 47, 19)';
               break;
               case 3:
-              context2.fillStyle = 'rgb(21, 101, 149)';
+              context.fillStyle = 'rgb(21, 101, 149)';
               break;
               case 4:
-              context2.fillStyle = 'rgb(165, 122, 72)';
+              context.fillStyle = 'rgb(165, 122, 72)';
               break;
               case 5:
-              context2.fillStyle = 'rgb(215, 156, 52)';
+              context.fillStyle = 'rgb(215, 156, 52)';
               break;
               case 6:
-              context2.fillStyle = 'rgb(84, 34, 90)';
+              context.fillStyle = 'rgb(84, 34, 90)';
               break;
               case 7:
-              context2.fillStyle = 'rgb(24, 117, 20)';
+              context.fillStyle = 'rgb(24, 117, 20)';
               break;
               case 8:
-              context2.fillStyle = 'rgb(106, 53, 7)';
+              context.fillStyle = 'rgb(106, 53, 7)';
               break;
               case 9:
-              context2.fillStyle = 'rgb(206, 147, 28)';
+              context.fillStyle = 'rgb(206, 147, 28)';
               break;
               default:
-              context2.fillStyle = 'rgb(6, 147, 28)';
+              context.fillStyle = 'rgb(6, 147, 28)';
           }
-          context2.fill();
+          context.fill();
   }
  }
 
