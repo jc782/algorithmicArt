@@ -28,7 +28,7 @@ var colors = [
 
 
 let button = document.querySelector('button');
-button.addEventListener('click', printPDF)
+button.addEventListener('click', printPDF);
 
 // drag-n-drop
 function preventAction(e) {
@@ -66,8 +66,7 @@ img.addEventListener("load", function () {
 
   // resize the image
   ratio = w/h;
-  console.log(ratio);
-  // set the newsize larger dimension to be as requested
+  // set the newsize larger dimension to be as requested to fit a3 paper
   if (ratio < 1){
       orient = 0;
       if (ratio < 0.69){
@@ -87,9 +86,6 @@ img.addEventListener("load", function () {
           newWidth = Math.round(newHeight * ratio);
       }
   }
-  console.log(newWidth);
-  console.log(newHeight);
-
   // correct canvas size
   can.setAttribute("width", newWidth);
   can.setAttribute("height", newHeight);
@@ -156,68 +152,27 @@ img.addEventListener("load", function () {
   //create a Table Object
 
   while(pushPinCount.length) newArr.push(pushPinCount.splice(0,newWidth));
-  let table = document.createElement('table');
 
   var rowNum = 0;
   var colNum = 0;
   var xCen, yCen;
-  var radius = 3;
-  canvas.setAttribute("width", newWidth*2*radius+5);
-  canvas.setAttribute("height", newHeight*2*radius+5);
-  context.fillStyle = "white";
-  context.fillRect(0, 0, canvas.width, canvas.height);
+  var radius = window.innerWidth/(newWidth*5);
+  can.setAttribute("width", newWidth*2*radius);
+  can.setAttribute("height", newHeight*2*radius);
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, can.width, can.height);
   for (let row of newArr) {
-      table.insertRow();
       rowNum = rowNum + 1;
       colNum = 0;
       for (let cell of row) {
           colNum = colNum + 1;
-          let newCell = table.rows[table.rows.length - 1].insertCell();
-          newCell.textContent = cell;
-          var yCen = rowNum * 6;
-          var xCen = colNum * 6;
-          context.beginPath();
-          context.arc(xCen, yCen, radius, 0, 2 * Math.PI, false);
-          switch(cell){
-              case 0:
-              context.fillStyle = 'rgb(10, 7, 0)';
-              break;
-              case 1:
-              context.fillStyle = 'rgb(219, 193, 204)';
-              break;
-              case 2:
-              context.fillStyle = 'rgb(173, 47, 19)';
-              break;
-              case 3:
-              context.fillStyle = 'rgb(21, 101, 149)';
-              break;
-              case 4:
-              context.fillStyle = 'rgb(165, 122, 72)';
-              break;
-              case 5:
-              context.fillStyle = 'rgb(215, 156, 52)';
-              break;
-              case 6:
-              context.fillStyle = 'rgb(84, 34, 90)';
-              break;
-              case 7:
-              context.fillStyle = 'rgb(24, 117, 20)';
-              break;
-              case 8:
-              context.fillStyle = 'rgb(106, 53, 7)';
-              break;
-              case 9:
-              context.fillStyle = 'rgb(206, 147, 28)';
-              break;
-              default:
-              context.fillStyle = 'rgb(6, 147, 28)';
-          }
-          context.fill();
+          var yCen = rowNum * 2* radius;
+          var xCen = colNum * 2* radius;
+          ctx.beginPath();
+          ctx.arc(xCen, yCen, radius, 0, 2 * Math.PI, false);
+          var fillStyle = [colors[cell][0], colors[cell][1], colors[cell][2]];
+          ctx.fillStyle = 'rgb(' +colors[cell][0] +', '+ colors[cell][1] +', ' + colors[cell][2]+ ')';
+          ctx.fill();
   }
  }
-
-
-//append the compiled table to the DOM
-document.body.appendChild(table);
-
-  });
+ });
