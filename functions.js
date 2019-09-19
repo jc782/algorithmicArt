@@ -17,7 +17,7 @@ function printPDF(){
         var xpos = (xSize/2)-6*(newWidth/2);
         for (let cell of row) {
             var text = cell;
-            pdf.text(xpos,ypos,String(colors[text][3]));
+            pdf.text(xpos,ypos,String(colors[text][4]));
             xpos = xpos + 6;
             };
             ypos = ypos + 6;

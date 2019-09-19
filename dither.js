@@ -14,16 +14,16 @@ var can = document.getElementById("canvas"),
 
 // select the colors that are available
 var colors = [
-                  [10, 7, 0,0], //black
-                  [219, 193, 204,1], // white
-                  [173, 47, 19,2], // red
-                  [21, 101, 149,3], //blue
-                  [165, 122, 72,4], // gold
-                  [215, 156, 52,5], //yellow
-                  [84, 34, 90, 6], // purple
-                  [24, 117, 20, 7], //green
-                  [106, 53, 7, 8], //brown
-                  [206, 147, 28, 9], //orange
+                  [10, 7, 0, 0,'B'], //black
+                  [219, 193, 204, 1,'W'], // white
+                  [173, 47, 19, 2,'R'], // red
+                  [21, 101, 149, 3,'B'], //blue
+                  [165, 122, 72, 4,'Go'], // gold
+                  [215, 156, 52, 5,'Y'], //yellow
+                  [84, 34, 90, 6,'P'], // purple
+                  [24, 117, 20, 7,'G'], //green
+                  [106, 53, 7, 8, 'Br'], //brown
+                  [206, 147, 28, 9, 'Bl'], //orange
               ];
 
 
