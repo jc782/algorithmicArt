@@ -8,6 +8,7 @@
 
   <title>Algorithmic Art - Floyd-Steinberg Dither</title>
   <meta name="description" content="Dither Image">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="J Carr" content="SitePoint">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js" crossorigin="anonymous"></script>
 
@@ -39,20 +40,32 @@
     <h1>Floyd-Steinberg dithering</h1>
     <p>Drop any image on to the canvas to dither it
 <br>
-        <button>Download</button>
+
     </p>
 
     <canvas id="canvas" width="300" height="300"></canvas>
-    <canvas id="myCanvas" width="1000" height="1000"></canvas>
+    <div style="margin: auto; max-width: 500px; padding: 20px; text-align: center;">
+       <form id="form">
+           <div>Pay with card</div>
+           <div id="card-element">
+               <!-- Stripe card inputs get injected here -->
+           </div>
+           <button type="submit">Buy Now</button>
+           <div id="error" style="color: #e25950;"></div>
+       </form>
 
-    
+       <div id="processing" style="display: none;">processing...</div>
+       <div id="thanks" style="display: none;">Thanks for your donation!</div>
+   </div>
+
+
 
     <script src="https://js.stripe.com/v3/"></script>
     <script src="https://checkout.stripe.com/checkout.js"></script>
     <script src="payments.js"></script>
 
 
-  <script src="functions.js"></script>
+  <script src="scripts.js"></script>
   <script src="dither.js"></script>
   <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase.js"></script>

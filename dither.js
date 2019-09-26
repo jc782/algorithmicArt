@@ -1,8 +1,6 @@
 //  define global variables
 var can = document.getElementById("canvas"),
     ctx = can.getContext("2d"),
-    canvas = document.getElementById('myCanvas'),
-    context = canvas.getContext('2d'),
     img = new Image(),
     pushPinCount = [],
     ratio = 1,
@@ -25,10 +23,6 @@ var colors = [
                   [106, 53, 7, 8, 'Br'], //brown
                   [206, 147, 28, 9, 'Bl'], //orange
               ];
-
-
-let button = document.querySelector('button');
-button.addEventListener('click', printPDF);
 
 // drag-n-drop
 function preventAction(e) {

@@ -1,106 +1,86 @@
-const STRIPE_PUBLIC_KEY = 'pk_test_SYvCp94MgvBxoYpj9Pss3xde00dqMVzpdx';
-Stripe.setPublishableKey(STRIPE_PUBLIC_KEY);
-var firebaseUI = new firebaseui.auth.AuthUI(firebase.auth());
-var firebaseAuthOptions = {
-  callbacks: {
-    signInSuccess: (currentUser, credential, redirectUrl) => { return false; },
-    uiShown: () => { document.getElementById('loader').style.display = 'none'; }
-  },
-  signInFlow: 'popup',
-  signInSuccessUrl: '/',
-  signInOptions: [ firebase.auth.GoogleAuthProvider.PROVIDER_ID ],
-  tosUrl: '/'
-};
-firebase.auth().onAuthStateChanged(firebaseUser => {
-  if (firebaseUser) {
-    document.getElementById('loader').style.display = 'none';
-    app.currentUser = firebaseUser;
-    app.listen();
-  } else {
-    firebaseUI.start('#firebaseui-auth-container', firebaseAuthOptions);
-    app.currentUser = null;
-  }
-});
-var app = new Vue({
-  el: '#app',
-  data: {
-    currentUser: null,
-    sources: {},
-    stripeCustomerInitialized: false,
-    newCreditCard: {
-      number: '4242424242424242',
-      cvc: '111',
-      exp_month: 1,
-      exp_year: 2020,
-      address_zip: '00000'
-    },
-    charges: {},
-    newCharge: {
-      source: null,
-      amount: 2000
-    }
-  },
-  ready: () => {
-  },
-  methods: {
-    listen: function() {
-      firebase.firestore().collection('stripe_customers').doc(`${this.currentUser.uid}`).onSnapshot(snapshot => {
-        this.stripeCustomerInitialized = (snapshot.data() !== null);
-      }, () => {
-        this.stripeCustomerInitialized = false;
-      });
-      firebase.firestore().collection('stripe_customers').doc(`${this.currentUser.uid}`).collection('sources').onSnapshot(snapshot => {
-       let newSources = {};
-        snapshot.forEach(doc => {
-          const id = doc.id;
-          newSources[id] = doc.data();
-        })
-        this.sources = newSources;
-      }, () => {
-        this.sources = {};
-      });
-      firebase.firestore().collection('stripe_customers').doc(`${this.currentUser.uid}`).collection('charges').onSnapshot(snapshot => {
-      let newCharges = {};
-       snapshot.forEach(doc => {
-         const id = doc.id;
-         newCharges[id] = doc.data();
-       })
-       this.charges = newCharges;
-      }, () => {
-        this.charges = {};
-      });
-    },
-    submitNewCreditCard: function() {
-      Stripe.card.createToken({
-        number: this.newCreditCard.number,
-        cvc: this.newCreditCard.cvc,
-        exp_month: this.newCreditCard.exp_month,
-        exp_year: this.newCreditCard.exp_year,
-        address_zip: this.newCreditCard.address_zip
-      }, (status, response) => {
-        if (response.error) {
-          this.newCreditCard.error = response.error.message;
-        } else {
-          firebase.firestore().collection('stripe_customers').doc(this.currentUser.uid).collection('tokens').add({token: response.id}).then(() => {
-            this.newCreditCard = {
-              number: '',
-              cvc: '',
-              exp_month: 1,
-              exp_year: 2017,
-              address_zip: ''
-            };
-          });
-        }
-      });
-    },
-    submitNewCharge: function() {
-      firebase.firestore().collection('stripe_customers').doc(this.currentUser.uid).collection('charges').add({
-        source: this.newCharge.source,
-        amount: parseInt(this.newCharge.amount)
-      });
-    },
-    signOut: function() {
-      firebase.auth().signOut()
-    }
-  }
-});
+const STRIPE_PUBLIC_KEY = 'pk_test_SYvCp94MgvBxoYpj9Pss3xde00dqMVzpdx'; // Test key
+       const FIREBASE_FUNCTION = 'https://us-central1-algorithmic-art.cloudfunctions.net/charge'; //
+
+       const stripe = Stripe(STRIPE_PUBLIC_KEY);
+       const elements = stripe.elements();
+
+       const charge_amount = 500;
+       const charge_currency = 'gbp';
+
+       // Store the elements used
+       const elForm = document.getElementById('form');
+       const elCard = document.getElementById('card-element');
+       const elError = document.getElementById('error');
+       const elProcessing = document.getElementById('processing');
+       const elThanks = document.getElementById('thanks');
+
+       addCardMethod();
+
+   function addCardMethod() {
+           const card = elements.create('card');
+           card.mount(elCard);
+           console.log('test1');
+
+           // Create flags to help prevent duplicate submissions
+           let isSubmitting, isSuccess;
+
+           // Handle validation errors from the card element
+           card.addEventListener('change', e => {
+               if (e.error) {
+                   elError.textContent = e.error.message;
+               } else {
+                   elError.textContent = '';
+               }
+           });
+
+           elForm.addEventListener('submit', async e => {
+               e.preventDefault();
+               if (isSubmitting) return;
+               isSubmitting = true;
+
+               elForm.style.display = 'none';
+               elProcessing.style.display = 'block';
+
+               let result = await stripe.createToken(card);
+
+               // Error in receiving token
+               if (result.error) return elError.textContent = result.error.message;
+
+               // Pass the received token to our Firebase function
+               let res = await charge(result.token, charge_amount, charge_currency);
+               if (res.body.error) return elError.textContent = res.body.error;
+               console.log(res);
+               // Card successfully charged
+               card.clear();
+               isSuccess = true;
+
+               isSubmitting = false;
+               elProcessing.style.display = 'none';
+
+               // Either display thanks or re-display form if there was an error
+               if (isSuccess) {
+                   elThanks.style.display = 'block';
+                   printPDF();
+               } else {
+                   elForm.style.display = 'block';
+               }
+           });
+       }
+
+       // Function used by all three methods to send the charge data to your Firebase function
+       async function charge(token, amount, currency) {
+           const res = await fetch(FIREBASE_FUNCTION, {
+               method: 'POST',
+               body: JSON.stringify({
+                   token,
+                   charge: {
+                       amount,
+                       currency,
+                   },
+               }),
+           });
+           const data = await res.json();
+           data.body = JSON.parse(data.body);
+           console.log(data);
+           return data;
+       }
