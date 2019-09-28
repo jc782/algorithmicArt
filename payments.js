@@ -19,8 +19,6 @@ const STRIPE_PUBLIC_KEY = 'pk_test_SYvCp94MgvBxoYpj9Pss3xde00dqMVzpdx'; // Test 
    function addCardMethod() {
            const card = elements.create('card');
            card.mount(elCard);
-           console.log('test1');
-
            // Create flags to help prevent duplicate submissions
            let isSubmitting, isSuccess;
 
