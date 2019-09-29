@@ -9,8 +9,9 @@ body {
   border-style: dotted;
   }
 
-  #section1 {padding-top:50px;height:500px;color: black; background-color: white;}
-  #section2 {padding-top:50px;height:500px;color: black; background-color: white;}
+  #section1 {padding-top:50px;padding-bottom:5px;;color: black; background-color: white;}
+  #section2 {padding-top:50px;padding-bottom:5px;color: black; background-color: white;}
+  #section3 {padding-top:50px;padding-bottom:5px;color: black; background-color: white;}
 
   .myButton {
   	-moz-box-shadow:inset 0px 0px 0px 2px #9fb4f2;
