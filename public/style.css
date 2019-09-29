@@ -6,7 +6,7 @@ body {
 #canvas {
   display: block;
   margin: 0px auto;
-  border: 2px black;
+  border-style: dotted;
   }
 
   .myButton {

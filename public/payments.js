@@ -4,7 +4,7 @@ const STRIPE_PUBLIC_KEY = 'pk_test_SYvCp94MgvBxoYpj9Pss3xde00dqMVzpdx'; // Test 
        const stripe = Stripe(STRIPE_PUBLIC_KEY);
        const elements = stripe.elements();
 
-       const charge_amount = 500;
+       const charge_amount = 99;
        const charge_currency = 'gbp';
 
        // Store the elements used
@@ -47,7 +47,6 @@ const STRIPE_PUBLIC_KEY = 'pk_test_SYvCp94MgvBxoYpj9Pss3xde00dqMVzpdx'; // Test 
                // Pass the received token to our Firebase function
                let res = await charge(result.token, charge_amount, charge_currency);
                if (res.body.error) return elError.textContent = res.body.error;
-               console.log(res);
                // Card successfully charged
                card.clear();
                isSuccess = true;

@@ -16,18 +16,21 @@ ctx.font = "14px Arial";
 ctx.fillText("Drop image here", 100, 190);
 // select the colors that are available
 var colors = [
-                  [10, 7, 0, 0,'B'], //black
-                  [219, 193, 204, 1,'W'], // white
-                  [173, 47, 19, 2,'R'], // red
-                  [21, 101, 149, 3,'B'], //blue
+                  [11, 6, 2, 0,'B'], //black
+                  [255, 249, 246, 1,'W'], // white
+                  [190, 25, 22, 2,'R'], // red
+                  [7, 4, 181, 3,'Bl'], //blue
                   [165, 122, 72, 4,'Go'], // gold
-                  [215, 156, 52, 5,'Y'], //yellow
-                  [84, 34, 90, 6,'P'], // purple
-                  [24, 117, 20, 7,'G'], //green
-                  [106, 53, 7, 8, 'Br'], //brown
-                  [206, 147, 28, 9, 'Bl'], //orange
-              ];
+                  [243, 130, 70, 5,'Y'], //yellow
+                  [151, 43, 178, 6,'P'], // purple
+                  [90, 217, 56, 7,'G'], //green
+                  [163, 81, 32, 8, 'Br'], //brown
+                  [206, 147, 28, 9, 'O'], //orange
+                  [176, 159, 156, 10, 'S'], //silver
+                  [245, 143, 204, 11, 'P'], //pink
 
+              ];
+//Black, Blue, Brown, Gold, Green, Orange, Pink, Purple, Red, Silver, White & Yellow
 // drag-n-drop
 function preventAction(e) {
   e.stopPropagation();

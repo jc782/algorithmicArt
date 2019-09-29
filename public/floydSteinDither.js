@@ -93,16 +93,16 @@ function floydSteinDither(img) {
 
   // put the data back
   ctx.putImageData(imageData, 0, 0);
-  //create a Table Object
-
+  var pushPinCopy = [...pushPinCount];
   while(pushPinCount.length) newArr.push(pushPinCount.splice(0,newWidth));
 
   var rowNum = 0;
   var colNum = 0;
   var xCen, yCen;
-  var radius = window.innerWidth/(newWidth*5);
+  var radius = window.innerWidth/(newWidth*6);
   can.setAttribute("width", newWidth*2*radius+radius);
   can.setAttribute("height", newHeight*2*radius+radius);
+  can.style.borderStyle = "none";
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, can.width, can.height);
   for (let row of newArr) {
@@ -119,4 +119,8 @@ function floydSteinDither(img) {
           ctx.fill();
   }
  }
+ var a, b;
+ [a, b] = countArray(pushPinCopy);
+ console.log(a, b);
+
  };
