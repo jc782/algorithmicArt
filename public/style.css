@@ -1,6 +1,6 @@
 body {
-  background: white;
   color: black;
+  position: relative;
 }
 
 #canvas {
@@ -8,6 +8,9 @@ body {
   margin: 0px auto;
   border-style: dotted;
   }
+
+  #section1 {padding-top:50px;height:500px;color: black; background-color: white;}
+  #section2 {padding-top:50px;height:500px;color: black; background-color: white;}
 
   .myButton {
   	-moz-box-shadow:inset 0px 0px 0px 2px #9fb4f2;

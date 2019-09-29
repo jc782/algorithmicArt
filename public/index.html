@@ -9,13 +9,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="J Carr" content="SitePoint">
   <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
 
 </head>
 
-<body>
-    <h1>Sticker Art</h1>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="">Dot-Art</a>
+    </div>
+    <div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="#section1">Tutorial</a></li>
+          <li><a href="#section2">Create</a></li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+<div id="section1" class="container-fluid">
+  <h1>Tutorial</h1>
+  <p>This section is the tutorial</p>
+</div>
+<div id="section2" class="container-fluid">
     <p>Create your piece of art with just 12 different colours of stickers. Either you can download for free
         one of our templates, or generate your own template.
         The artwork is based on using 6mm,or 1/4" dot stickers.
@@ -39,6 +67,7 @@
            <br>
            Please contact dot-art@gmail.com if the download fails.
             </div>
+   </div>
    </div>
 
     <script src="https://js.stripe.com/v3/"></script>
