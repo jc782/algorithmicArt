@@ -1,6 +1,5 @@
 // Prints the PDF file when requested
 function printPDF(){
-    console.log(orient);
     if (orient){
         var aspRat = 'l';
         var ySize = 297,
@@ -22,7 +21,28 @@ function printPDF(){
             };
             ypos = ypos + 6;
         };
-          pdf.save()
+          // create the tutorial page
+          pdf.addPage('a4', 'portrait');
+          pdf.setFontSize(12);
+          var tutorialText = [];
+
+          tutorialText.push('Thank-you for supporting the dot-art project.');
+          tutorialText.push('This page has some custom details for your dot-art project.');
+          tutorialText.push('For a general tutorial please see the online tutorial page.');
+          tutorialText.push('You will need the following number of stickers.');
+
+          var total =0;
+          for (var i=0; i<a.length; i++){
+            tutorialText.push(colors[a[i]][5] +': ' + b[i]);
+            total = total +b[i];
+          };
+          tutorialText.push('--------------');
+          tutorialText.push('Total: ' + total);
+          tutorialText.push(' ');
+          tutorialText.push('We appreciate your support. PLease share your final dot-art with us...');
+
+          pdf.text(15, 20, tutorialText);
+          pdf.save('Dot-Art.pdf');
 
          var db = firebase.firestore();
          var stri = String(newArr);

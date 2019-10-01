@@ -119,8 +119,10 @@ function floydSteinDither(img) {
           ctx.fill();
   }
  }
- var a, b;
  [a, b] = countArray(pushPinCopy);
- console.log(a, b);
+ for (var i=0; i<a.length; i++){
+   console.log(a[i], b[i], colors[a[i]][5]);
+ };
+
 
  };
