@@ -28,9 +28,8 @@ var colors = [
                   [90, 217, 56, 7,'G', 'Green'], //green
                   [163, 81, 32, 8, 'Br', 'Brown'], //brown
                   [206, 147, 28, 9, 'O', 'Orange'], //orange
-                  [176, 159, 156, 10, 'S', 'Silver'], //silver
-                  [245, 143, 204, 11, 'P', 'Pink'], //pink
-
+                  [245, 143, 204, 10, 'P', 'Pink'], //pink
+                //  [176, 159, 156, 10, 'S', 'Silver'], //silver
               ];
 //Black, Blue, Brown, Gold, Green, Orange, Pink, Purple, Red, Silver, White & Yellow
 // drag-n-drop

@@ -90,7 +90,7 @@ function calculateQuantError(o, n) {
     var gError = parseInt(o.g - n.g);
     var bError = parseInt(o.b - n.b);
 
-  return { r: rError, g: gError, b: bError, a: 255 };
+  return { r: rError, g: gError*1.5, b: bError, a: 255 };
 }
 
 

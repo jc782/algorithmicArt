@@ -27,45 +27,78 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="">Dot-Art</a>
+      <a class="navbar-brand" href="">
+           <img id="logo" class="img img-responsive" src="logo.png" alt="Logo">
+        </a>
     </div>
     <div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-            <li><a data-toggle="collapse" href="#section1" aria-expanded="false"
+            <li><a data-toggle="collapse" href="#section3" aria-expanded="false"
+    aria-controls="section3">Home</a></li>
+    <li><a data-toggle="collapse" href="#section1" aria-expanded="false"
     aria-controls="section1">Tutorial</a></li>
     <li><a data-toggle="collapse" href="#section2" aria-expanded="false"
-    aria-controls="section3">Examples</a></li>
-    <li><a data-toggle="collapse" href="#section3" aria-expanded="false"
-aria-controls="section3">Create</a></li>
+aria-controls="section2">Examples</a></li>
           </ul>
       </div>
     </div>
   </div>
 </nav>
-<div id="section1" class="collapse in" data-parent="#myGroup">
-  <h1>Tutorial</h1>
-  <p>Dot-Art uses a photograph, and creates a template that can be used to make a completely custom piece of art.
-  It uses maths previously developed for generating images that had low resolution and limited (8bit) colour options
-available. For information on the algorithm implemented look <a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering" target="_blank"> here</a>. Dot-Art takes low colour and low resolution to the extreme.</p>
-<p>The templates created here are based on just 12 colours. They are the colours easily available <a href="https://www.amazon.co.uk/gp/product/B07QSBWZQF" target="_blank"> here</a>.
-The artwork is designed for the 6mm stickers, and to fit on an A3 page.</p>
-<p>The downloaded template is an A3 page with the required colour sticker marked in each location. A full set of instructions, including the number of required stickers is on the second sheet.
-The A3 paper allows for a resolutions of 65px x 45px [ie super low resolution]. But even this size will take roughly 6 hours to complete the artwork.
-</p>
-<p>It can be challenging to find good input photos - try things with clear colour blocks and relatively simple shapes. Too much complexity will overwhelm the resolution.
-Some examples are included below - but I really recommend trying to find a personal photo that works. Perhaps it will make an excellent gift for friends or family.</p>
+<div id="section1" class="collapse" data-parent="#myGroup">
+    <div class="container">
+  <div class="row">
+    <div class="col-sm">
+         </div>
+    <div class="col-sm">
+        <h1>Tutorial</h1>
+        <p>Dot-Art uses a photograph, and creates a template that can be used to make a completely custom piece of art.
+        It uses maths previously developed for generating images that had low resolution and limited (8bit) colour options
+        available. For information on the algorithm implemented look <a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering" target="_blank"> here</a>. Dot-Art takes low colour and low resolution to the extreme.</p>
+        <p>The templates created here are based on just 12 colours. They are the colours easily available <a href="https://www.amazon.co.uk/gp/product/B07QSBWZQF" target="_blank"> here</a>.
+        The artwork is designed for the 6mm stickers, and to fit on an A3 page.</p>
+        <p>The downloaded template is an A3 page with the required colour sticker marked in each location. A full set of instructions, including the number of required stickers is on the second sheet.
+        The A3 paper allows for a resolutions of 65px x 45px [ie super low resolution]. But even this size will take roughly 6 hours to complete the artwork.
+        </p>
+        <p>It can be challenging to find good input photos - try things with clear colour blocks and relatively simple shapes. Too much complexity will overwhelm the resolution.
+        Some examples are included below - but I really recommend trying to find a personal photo that works. Perhaps it will make an excellent gift for friends or family.</p>
+    </div>
+    <div class="col-sm">
+         </div>
+  </div>
+</div>
 </div>
 <div id="section2" class="collapse" data-parent="#myGroup">
-  <h1>Examples</h1>
-  <p>This is the examples</p>
+    <div class="container">
+    <div class="row">
+    <div class="col-sm">
+         </div>
+    <div class="col-sm">
+        <h1>Examples</h1>
+        <p>Please download our example templates for free. All the information in how to create the art is on page two of the pdf.</p>
+        </div>
+    <div class="col-sm">
+         </div>
+    </div>
+    </div>
 </div>
-<div id="section3" class="collapse" data-parent="#myGroup">
-    <h1>Create</h1>
-    <p>Drag your own images onto the canvas below to generate your own Dot-Art.
-        <br>
-        <img id="upload"class="hidden" src="upload.png" alt="Upload">
-    </p>
+<div id="section3" class="collapse in" data-parent="#myGroup">
+    <div class="container">
+    <div class="row">
+    <div class="col-sm">
+         </div>
+    <div class="col-sm">
+        <h1>Home</h1>
+        <p>Welcome to dot-art, we hope you can use this website to create your own custom piece of art. Get started by dragging your own photos or images onto the canvas below, or have a look at the tutorials and examples.</p>
+        <p>Drag your own images onto the canvas below to generate your own Dot-Art.
+            <br>
+            <img id="upload"class="hidden" src="upload.png" alt="Upload">
+        </p>
+    </div>
+    <div class="col-sm">
+         </div>
+    </div>
+    </div>
     <canvas id="canvas" width="300" height="300"></canvas>
     <div style="margin: auto; max-width: 500px; padding: 20px; text-align: center;">
     <button onclick="printPDF()">Download</button>

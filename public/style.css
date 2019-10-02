@@ -56,3 +56,14 @@ body {
 img.hidden {
   display: none;
 }
+
+.navbar-brand {
+  width:150px;
+  font-size: 24px;
+}
+.navbar-brand img {
+  height: 30px;
+  /* put value of image height as your need */
+  float: left;
+  margin-right: 7px;
+}

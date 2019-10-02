@@ -114,6 +114,7 @@ function floydSteinDither(img) {
           var xCen = colNum * 2* radius;
           ctx.beginPath();
           ctx.arc(xCen, yCen, radius, 0, 2 * Math.PI, false);
+          console.log(cell);
           var fillStyle = [colors[cell][0], colors[cell][1], colors[cell][2]];
           ctx.fillStyle = 'rgb(' +colors[cell][0] +', '+ colors[cell][1] +', ' + colors[cell][2]+ ')';
           ctx.fill();
