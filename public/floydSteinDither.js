@@ -99,7 +99,7 @@ function floydSteinDither(img) {
   var rowNum = 0;
   var colNum = 0;
   var xCen, yCen;
-  var radius = window.innerWidth/(newWidth*6);
+  var radius = window.innerWidth/(newWidth*5);
   can.setAttribute("width", newWidth*2*radius+radius);
   can.setAttribute("height", newHeight*2*radius+radius);
   can.style.borderStyle = "none";
@@ -114,7 +114,6 @@ function floydSteinDither(img) {
           var xCen = colNum * 2* radius;
           ctx.beginPath();
           ctx.arc(xCen, yCen, radius, 0, 2 * Math.PI, false);
-          console.log(cell);
           var fillStyle = [colors[cell][0], colors[cell][1], colors[cell][2]];
           ctx.fillStyle = 'rgb(' +colors[cell][0] +', '+ colors[cell][1] +', ' + colors[cell][2]+ ')';
           ctx.fill();

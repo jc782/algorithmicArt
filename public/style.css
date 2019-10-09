@@ -3,6 +3,8 @@ body {
   position: relative;
 }
 
+.img-responsive {display:block; height: 200px; margin: auto;}
+
 #canvas {
   display: block;
   margin: 0px auto;

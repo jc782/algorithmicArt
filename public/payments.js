@@ -4,7 +4,7 @@ const STRIPE_PUBLIC_KEY = 'pk_test_SYvCp94MgvBxoYpj9Pss3xde00dqMVzpdx'; // Test 
        const stripe = Stripe(STRIPE_PUBLIC_KEY);
        const elements = stripe.elements();
 
-       const charge_amount = 99;
+       const charge_amount = 300;
        const charge_currency = 'gbp';
 
        // Store the elements used

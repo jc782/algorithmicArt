@@ -1,15 +1,27 @@
 // Prints the PDF file when requested
 function printPDF(){
+    if (paperSize === 'a3'){
+        var l = 420;
+        var p = 297;
+    } else if(paperSize ==='a2'){
+        var l=590;
+        var p=420;
+    } else{
+        var l=840;
+        var p=590;
+    }
+
     if (orient){
         var aspRat = 'l';
-        var ySize = 297,
-            xSize = 420;
+        var ySize = p,
+            xSize = l;
     } else {
         var aspRat = 'p';
-        var ySize = 420,
-            xSize = 297;
+        var ySize = l,
+            xSize = p;
         };
-    const pdf = new jsPDF(aspRat, 'mm', 'a3'); //create an a3 size piece of paper
+    console.log(paperSize);
+    const pdf = new jsPDF(aspRat, 'mm', paperSize); //create an a3 size piece of paper
     var ypos = (ySize/2)-6*(newHeight/2);
     pdf.setFontSize(6);
     for (let row of newArr) {
@@ -39,7 +51,16 @@ function printPDF(){
           tutorialText.push('--------------');
           tutorialText.push('Total: ' + total);
           tutorialText.push(' ');
-          tutorialText.push('We appreciate your support. PLease share your final dot-art with us...');
+          tutorialText.push(' ');
+          tutorialText.push('On the template the colours are marked as follows');
+          for (var i=0; i<colors.length; i++){
+            tutorialText.push(colors[i][4] +': ' + colors[i][5]);
+            };
+
+
+          tutorialText.push(' ');
+
+          tutorialText.push('We appreciate your support.');
 
           pdf.text(15, 20, tutorialText);
           pdf.save('Dot-Art.pdf');
@@ -74,7 +95,7 @@ function palette(color) {
           newR = parseInt(colors[i][0]);
           newG = parseInt(colors[i][1]);
           newB = parseInt(colors[i][2]);
-          c = parseInt(colors[i][3]);
+          c = parseInt(i);
       };
 
   };
@@ -90,7 +111,7 @@ function calculateQuantError(o, n) {
     var gError = parseInt(o.g - n.g);
     var bError = parseInt(o.b - n.b);
 
-  return { r: rError, g: gError*1.5, b: bError, a: 255 };
+  return { r: rError, g: gError, b: bError, a: 255 };
 }
 
 
