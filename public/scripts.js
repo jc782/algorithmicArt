@@ -20,7 +20,6 @@ function printPDF(){
         var ySize = l,
             xSize = p;
         };
-    console.log(paperSize);
     const pdf = new jsPDF(aspRat, 'mm', paperSize); //create an a3 size piece of paper
     var ypos = (ySize/2)-6*(newHeight/2);
     pdf.setFontSize(6);
@@ -37,9 +36,13 @@ function printPDF(){
           pdf.addPage('a4', 'portrait');
           pdf.setFontSize(12);
           var tutorialText = [];
-
+          var imgData = new Image();
+          imgData.src = "logo.png";
+          pdf.addImage(imgData, 'PNG', 10, 5, 90, 20);
+          tutorialText.push('');
+          tutorialText.push('');
           tutorialText.push('Thank-you for supporting the dot-art project.');
-          tutorialText.push('This page has some custom details for your dot-art project.');
+          tutorialText.push('Below are some important bits of information for your custom dot-art project');
           tutorialText.push('For a general tutorial please see the online tutorial page.');
           tutorialText.push('You will need the following number of stickers.');
 
@@ -52,17 +55,18 @@ function printPDF(){
           tutorialText.push('Total: ' + total);
           tutorialText.push(' ');
           tutorialText.push(' ');
-          tutorialText.push('On the template the colours are marked as follows');
+          tutorialText.push('On the template the colours are marked as follows:');
           for (var i=0; i<colors.length; i++){
             tutorialText.push(colors[i][4] +': ' + colors[i][5]);
             };
+          tutorialText.push('Simply place a sticker of the correct colour over each marking.');
 
 
           tutorialText.push(' ');
 
-          tutorialText.push('We appreciate your support.');
+          tutorialText.push('Have fun!');
 
-          pdf.text(15, 20, tutorialText);
+          pdf.text(10, 25, tutorialText);
           pdf.save('Dot-Art.pdf');
 
          var db = firebase.firestore();
