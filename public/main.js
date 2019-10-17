@@ -12,9 +12,11 @@ var can = document.getElementById("canvas"),
     paperSize = 'a2',
     a = [],
     b = [],
-    orient = 1; // 1 is landscape, 0 is portrait
+    orient = 1, // 1 is landscape, 0 is portrait
+    imageLoader = document.getElementById('imageLoader');
 
-console.log(paperSize);
+imageLoader.addEventListener('change', handleImage, false);
+
 ctx.drawImage(uploadImg, 120, 100);
 ctx.font = "14px Arial";
 ctx.fillText("Drop image here", 100, 190);
@@ -34,6 +36,14 @@ var colors = [
                   //[158, 152, 156, 10, 'S', 'Silver'], //silver
               ];
 //Black, Blue, Brown, Gold, Green, Orange, Pink, Purple, Red, Silver, White & Yellow
+// Image upload
+function handleImage(e){
+    var reader = new FileReader();
+    reader.onload = function(event){
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(e.target.files[0]);
+}
 // drag-n-drop
 function preventAction(e) {
   e.stopPropagation();
