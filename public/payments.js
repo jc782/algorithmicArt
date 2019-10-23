@@ -1,4 +1,6 @@
-const STRIPE_PUBLIC_KEY = 'pk_test_SYvCp94MgvBxoYpj9Pss3xde00dqMVzpdx'; // Test key
+//const STRIPE_PUBLIC_KEY = 'pk_test_SYvCp94MgvBxoYpj9Pss3xde00dqMVzpdx'; // Test key
+const STRIPE_PUBLIC_KEY = 'pk_live_mM73XAtU2wxJq1CXlrq6ryXh00vkVsLGOf'; // Test key
+
        const FIREBASE_FUNCTION = 'https://us-central1-algorithmic-art.cloudfunctions.net/charge'; //
 
        const stripe = Stripe(STRIPE_PUBLIC_KEY);
